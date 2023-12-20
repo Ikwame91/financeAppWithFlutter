@@ -16,17 +16,18 @@ class _ChartState extends State<Chart> {
       width: double.infinity,
       height: 300,
       child: SfCartesianChart(
-        primaryXAxis: const CategoryAxis(),
+        primaryXAxis: CategoryAxis(),
         series: <SplineSeries<SalesData, String>>[
           SplineSeries<SalesData, String>(
             color: AppColors.bgColor,
             width: 3,
             dataSource: <SalesData>[
-              SalesData('mon', 100),
+              SalesData('Mon', 100),
               SalesData("Tue", 78),
               SalesData("wed", 22),
               SalesData("sat", 56),
-              SalesData("sun", 23)
+              SalesData("Fri", 23),
+              SalesData("sun", 50)
             ],
             xValueMapper: (SalesData sales, _) => sales.year,
             yValueMapper: (SalesData sales, _) => sales.sales,

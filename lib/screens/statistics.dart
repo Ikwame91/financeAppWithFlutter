@@ -1,3 +1,4 @@
+import 'package:finance_app/data/top.dart';
 import 'package:finance_app/utils/colors.dart';
 import 'package:finance_app/utils/text.dart';
 import 'package:finance_app/widgets/chart.dart';
@@ -81,7 +82,7 @@ class _StatisticsState extends State<Statistics> {
                             border: Border.all(color: Colors.grey, width: 2),
                             borderRadius: BorderRadius.circular(10)),
                         width: 120,
-                        height: 45,
+                        height: 40,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -103,11 +104,57 @@ class _StatisticsState extends State<Statistics> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text('ssssssssssssssssssss'),
-                const Chart()
+                const Chart(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BoldText(
+                        text: 'Top Spending',
+                        color: AppColors.black,
+                        size: 24,
+                      ),
+                      Icon(
+                        Icons.swap_vert,
+                        size: 30,
+                        color: Colors.grey.shade700,
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
-          )
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => ListTile(
+                leading: Image.asset(
+                  'assets/${geterTop()[index].image!}',
+                  height: 40,
+                ),
+                title: BoldText(
+                  text: geterTop()[index].name!,
+                  color: AppColors.black,
+                  size: 20,
+                ),
+                subtitle: ModifiedText(
+                  text: geterTop()[index].time!,
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+                trailing: ModifiedText(
+                  text: geterTop()[index].fee!,
+                  color: geterTop()[index].buy! ? Colors.red : Colors.green,
+                  fontSize: 20,
+                ),
+              ),
+              childCount: geterTop().length,
+            ),
+          ),
         ],
       )),
     );
