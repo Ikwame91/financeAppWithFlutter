@@ -1,4 +1,4 @@
-import 'package:finance_app/screens/statistics.dart';
+import 'package:finance_app/widgets/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
         useMaterial3: true,
       ),
-      home: const Statistics(),
+      home: const Bottom(),
     );
   }
 }
