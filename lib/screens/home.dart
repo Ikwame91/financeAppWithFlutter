@@ -1,3 +1,4 @@
+import 'package:finance_app/data/listdata.dart';
 import 'package:finance_app/utils/colors.dart';
 import 'package:finance_app/utils/text.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +44,29 @@ class Home extends StatelessWidget {
                 (context, index) => ListTile(
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      "assets/${geter()[index].image!}",
+                      width: 50,
+                      height: 50,
+                    ),
+                  ),
+                  title: BoldText(
+                    text: geter()[index].name!,
+                    size: 18,
+                    color: AppColors.black,
+                  ),
+                  subtitle: ModifiedText(
+                    text: geter()[index].time!,
+                    color: AppColors.black,
+                    fontSize: 16,
+                  ),
+                  trailing: ModifiedText(
+                    text: "\$${geter()[index].fee!}",
+                    color: geter()[index].buy! ? Colors.red : Colors.green,
+                    fontSize: 18,
                   ),
                 ),
+                childCount: geter().length,
               ),
             ),
           ],
