@@ -12,16 +12,32 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   int index = 0;
-  List Screen = [
+  List screen = [
     const Home(),
     const Statistics(),
     const Home(),
     const Statistics(),
   ];
+
+  Widget buildIcon(IconData icon, int iconIndex) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          index = iconIndex;
+        });
+      },
+      child: Icon(
+        icon,
+        size: 30,
+        color: index == iconIndex ? AppColors.bgColor : Colors.grey[400],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Screen[index],
+      body: screen[index],
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: AppColors.bgColor,
@@ -35,57 +51,11 @@ class _BottomState extends State<Bottom> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 0;
-                  });
-                },
-                child: Icon(
-                  Icons.home,
-                  size: 30,
-                  color: index == 0 ? AppColors.bgColor : Colors.grey[400],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 1;
-                  });
-                },
-                child: Icon(
-                  Icons.bar_chart_outlined,
-                  size: 30,
-                  color: index == 1 ? AppColors.bgColor : Colors.grey[400],
-                ),
-              ),
-              const SizedBox(
-                width: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 2;
-                  });
-                },
-                child: Icon(
-                  Icons.account_balance_wallet_outlined,
-                  size: 30,
-                  color: index == 2 ? AppColors.bgColor : Colors.grey[400],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 3;
-                  });
-                },
-                child: Icon(
-                  Icons.person_outline,
-                  size: 30,
-                  color: index == 3 ? AppColors.bgColor : Colors.grey[400],
-                ),
-              ),
+              buildIcon(Icons.home, 0),
+              buildIcon(Icons.bar_chart_outlined, 1),
+              const SizedBox(width: 25),
+              buildIcon(Icons.account_balance_wallet_outlined, 2),
+              buildIcon(Icons.person_outline, 3),
             ],
           ),
         ),
