@@ -18,6 +18,7 @@ class _AddScreenState extends State<AddScreen> {
   final TextEditingController _numEditingController = TextEditingController();
 
   String? selectedItem;
+  String? selectedItem2;
   final List<String> _item = [
     'Food',
     'Transport',
@@ -78,7 +79,15 @@ class _AddScreenState extends State<AddScreen> {
           const SizedBox(
             height: 50,
           ),
-          dropDown(),
+          CustomDropDown(
+            items: _item,
+            hint: 'Name',
+            onChanged: (value) {
+              setState(() {
+                selectedItem = value;
+              });
+            },
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -101,83 +110,14 @@ class _AddScreenState extends State<AddScreen> {
           ),
           CustomDropDown(
             items: _item2,
-            hint: 'Name',
-            onChanged: (value) {},
+            hint: 'Choice',
+            onChanged: (value) {
+              setState(() {
+                selectedItem2 = value;
+              });
+            },
           )
         ],
-      ),
-    );
-  }
-
-  Padding dropDown() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        width: 300,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey.shade300),
-        ),
-        child: DropdownButton<String>(
-          value: selectedItem,
-          onChanged: ((value) {
-            setState(() {
-              selectedItem = value!;
-            });
-          }),
-          items: _item
-              .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.circle,
-                          color: AppColors.bgColor,
-                          size: 10,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        ModifiedText(
-                          text: e,
-                          color: AppColors.black,
-                          fontSize: 22,
-                        ),
-                      ],
-                    ),
-                  ))
-              .toList(),
-          selectedItemBuilder: (BuildContext context) => _item
-              .map(
-                (e) => Row(
-                  children: [
-                    Icon(
-                      Icons.circle,
-                      color: AppColors.bgColor,
-                      size: 10,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    ModifiedText(
-                      text: e,
-                      color: AppColors.black,
-                      fontSize: 22,
-                    ),
-                  ],
-                ),
-              )
-              .toList(),
-          hint: ModifiedText(
-            text: " Name",
-            color: AppColors.black,
-            fontSize: 22,
-          ),
-          dropdownColor: Colors.white,
-          isExpanded: true,
-          underline: const SizedBox(),
-        ),
       ),
     );
   }
