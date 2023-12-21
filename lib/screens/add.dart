@@ -1,6 +1,7 @@
 import 'package:finance_app/utils/colors.dart';
 import 'package:finance_app/utils/text.dart';
 import 'package:finance_app/widgets/custom_drop_down.dart';
+import 'package:finance_app/widgets/simple_container.dart';
 import 'package:finance_app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  DateTime? date = DateTime.now();
   FocusNode focusNode = FocusNode();
   FocusNode numFocusnode = FocusNode();
   final TextEditingController _textEditingController = TextEditingController();
@@ -68,7 +70,7 @@ class _AddScreenState extends State<AddScreen> {
 
   Container mainContainer() {
     return Container(
-      height: 500,
+      height: 550,
       width: 340,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -88,26 +90,20 @@ class _AddScreenState extends State<AddScreen> {
               });
             },
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 30),
           Textfieldd(
             focusNode: focusNode,
             textEditingController: _textEditingController,
             text: "explain",
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 30),
           Textfieldd(
             keyboardType: TextInputType.number,
             focusNode: numFocusnode,
             textEditingController: _numEditingController,
             text: "amount",
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 30),
           CustomDropDown(
             items: _item2,
             hint: 'Choice',
@@ -116,10 +112,47 @@ class _AddScreenState extends State<AddScreen> {
                 selectedItem2 = value;
               });
             },
-          )
+          ),
+          const SizedBox(height: 30),
+          dateTime(),
+          const Spacer(),
+          const SimpleContainer(
+            text: 'Save',
+          ),
+          const SizedBox(height: 10),
         ],
       ),
     );
+  }
+
+  Container dateTime() {
+    return Container(
+        alignment: Alignment.bottomLeft,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade300, width: 2),
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.lightWhite,
+        ),
+        width: 300,
+        child: TextButton(
+          onPressed: () async {
+            DateTime? pickedDate = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2015),
+              lastDate: DateTime(2050),
+            );
+            if (pickedDate != null) {
+              setState(() {
+                date = pickedDate;
+              });
+            }
+          },
+          child: Text(
+            'Date : ${date!.day}/${date!.month}/${date!.year}',
+            style: const TextStyle(color: Colors.black, fontSize: 22),
+          ),
+        ));
   }
 
   Column backgroundContainer(BuildContext context) {
