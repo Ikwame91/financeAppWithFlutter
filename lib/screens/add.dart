@@ -1,5 +1,7 @@
 import 'package:finance_app/utils/colors.dart';
 import 'package:finance_app/utils/text.dart';
+import 'package:finance_app/widgets/custom_drop_down.dart';
+import 'package:finance_app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
 class AddScreen extends StatefulWidget {
@@ -11,7 +13,10 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   FocusNode focusNode = FocusNode();
+  FocusNode numFocusnode = FocusNode();
   final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _numEditingController = TextEditingController();
+
   String? selectedItem;
   final List<String> _item = [
     'Food',
@@ -23,11 +28,21 @@ class _AddScreenState extends State<AddScreen> {
     'Education',
     'Other'
   ];
+  final List<String> _item2 = [
+    'Food',
+    'Transport',
+    'Shopping',
+    'Education',
+    'Other'
+  ];
 
   @override
   void initState() {
     super.initState();
     focusNode.addListener(() {
+      setState(() {});
+    });
+    numFocusnode.addListener(() {
       setState(() {});
     });
   }
@@ -67,36 +82,28 @@ class _AddScreenState extends State<AddScreen> {
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: TextField(
-                focusNode: focusNode,
-                controller: _textEditingController,
-                decoration: InputDecoration(
-                  hintText: "Amount",
-                  labelStyle: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 22,
-                  ),
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 22,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(color: AppColors.lightWhite, width: 2),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: AppColors.black, width: 2),
-                  ),
-                )),
+          Textfieldd(
+            focusNode: focusNode,
+            textEditingController: _textEditingController,
+            text: "explain",
           ),
+          const SizedBox(
+            height: 20,
+          ),
+          Textfieldd(
+            keyboardType: TextInputType.number,
+            focusNode: numFocusnode,
+            textEditingController: _numEditingController,
+            text: "amount",
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          CustomDropDown(
+            items: _item2,
+            hint: 'Name',
+            onChanged: (value) {},
+          )
         ],
       ),
     );
