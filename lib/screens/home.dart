@@ -1,4 +1,5 @@
 import 'package:finance_app/data/model/add_data.dart';
+import 'package:finance_app/data/utility.dart';
 import 'package:finance_app/utils/colors.dart';
 import 'package:finance_app/utils/text.dart';
 import 'package:flutter/material.dart';
@@ -124,7 +125,7 @@ class _HomeState extends State<Home> {
       ),
       trailing: ModifiedText(
         text: history.amont,
-        color: history.isInBox == 'Income' ? Colors.blue : Colors.red,
+        color: history.isInBox == 'Income' ? Colors.green : Colors.red,
         fontSize: 18,
       ),
     );
@@ -224,7 +225,7 @@ class _HomeState extends State<Home> {
                   child: Row(
                     children: [
                       BoldText(
-                        text: " \$2,1504",
+                        text: " \$ ${total()}",
                         size: 20,
                         color: AppColors.lightWhite,
                       ),
