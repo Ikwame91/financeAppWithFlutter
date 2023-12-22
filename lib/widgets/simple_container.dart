@@ -16,23 +16,20 @@ class SimpleContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        alignment: Alignment.center,
-        width: width ?? 150,
-        height: height ?? 50,
-        decoration: BoxDecoration(
-          color: AppColors.bgColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: TextButton(
-          onPressed: () {},
-          child: BoldText(
-            text: text,
-            color: Colors.white,
-            size: 22,
-          ),
+    return Container(
+      alignment: Alignment.center,
+      width: width ?? 150,
+      height: height ?? 50,
+      decoration: BoxDecoration(
+        color: AppColors.bgColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextButton(
+        onPressed: () {},
+        child: BoldText(
+          text: text,
+          color: Colors.white,
+          size: 22,
         ),
       ),
     );

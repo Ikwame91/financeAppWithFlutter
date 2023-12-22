@@ -122,12 +122,15 @@ class _AddScreenState extends State<AddScreen> {
           GestureDetector(
             onTap: () {
               var add = AddData(
-                  name: selectedItem ?? "no data",
-                  explain: _textEditingController.text,
-                  amont: _numEditingController.text,
-                  choice: selectedItem2 ?? "No data",
-                  dateTime: date!);
+                name: selectedItem ?? "no data",
+                explain: _textEditingController.text,
+                amont: _numEditingController.text,
+                choice: selectedItem2 ?? "No data",
+                dateTime: date!,
+              );
               box.add(add);
+
+              Navigator.of(context).pop();
             },
             child: const SimpleContainer(
               text: 'Save',
