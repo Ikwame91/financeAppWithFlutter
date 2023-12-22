@@ -7,12 +7,11 @@ class SimpleContainer extends StatelessWidget {
     super.key,
     this.width,
     this.height,
-    this.onTap,
     required this.text,
   });
   final double? width;
   final double? height;
-  final void Function()? onTap;
+
   final String text;
 
   @override

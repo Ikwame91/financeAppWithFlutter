@@ -1,9 +1,11 @@
+import 'package:finance_app/data/model/add_data.dart';
 import 'package:finance_app/utils/colors.dart';
 import 'package:finance_app/utils/text.dart';
 import 'package:finance_app/widgets/custom_drop_down.dart';
 import 'package:finance_app/widgets/simple_container.dart';
 import 'package:finance_app/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
@@ -13,6 +15,7 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  final box = Hive.box<AddData>('data');
   DateTime? date = DateTime.now();
   FocusNode focusNode = FocusNode();
   FocusNode numFocusnode = FocusNode();
@@ -116,8 +119,19 @@ class _AddScreenState extends State<AddScreen> {
           const SizedBox(height: 30),
           dateTime(),
           const Spacer(),
-          const SimpleContainer(
-            text: 'Save',
+          GestureDetector(
+            onTap: () {
+              var add = AddData(
+                  name: selectedItem ?? "no data",
+                  explain: _textEditingController.text,
+                  amont: _numEditingController.text,
+                  choice: selectedItem2 ?? "No data",
+                  dateTime: date!);
+              box.add(add);
+            },
+            child: const SimpleContainer(
+              text: 'Save',
+            ),
           ),
           const SizedBox(height: 10),
         ],
