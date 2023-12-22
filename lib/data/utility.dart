@@ -14,7 +14,7 @@ int total() {
 
       // If 'isInBox' is "income", add the amount as is; otherwise, add its negation
       // ignore: unrelated_type_equality_checks
-      income.add(history2[i].isInBox == 'Income' ? amount : -amount);
+      income.add(history2[i].choice == 'Income' ? amount : -amount);
     } catch (e) {
       // Handlng the case where parsing fails
       print("Error parsing amount at index $i: $e");
@@ -38,7 +38,7 @@ int income() {
 
       // If 'isInBox' is "income", add the amount as is; otherwise, add its negation
       // ignore: unrelated_type_equality_checks
-      income.add(history2[i].isInBox == 'Income' ? amount : 0);
+      income.add(history2[i].choice == 'Income' ? amount : 0);
     } catch (e) {
       // Handlng the case where parsing fails
       print("Error parsing amount at index $i: $e");
@@ -57,9 +57,8 @@ int expenses() {
   var history2 = box.values.toList();
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
-    a.add(history2[i].isInBox == 'Income'
-        ? 0
-        : int.parse(history2[i].amont) * -1);
+    a.add(
+        history2[i].choice == 'Income' ? 0 : int.parse(history2[i].amont) * -1);
   }
   totals = a.reduce((value, element) => value + element);
   return totals;

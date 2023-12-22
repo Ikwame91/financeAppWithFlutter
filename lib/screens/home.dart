@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
       ),
       trailing: ModifiedText(
         text: history.amont,
-        color: history.isInBox == 'Income' ? Colors.green : Colors.red,
+        color: history.choice == 'Income' ? Colors.green : Colors.red,
         fontSize: 18,
       ),
     );
@@ -286,12 +286,12 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ModifiedText(
-                        text: " \$2,1504",
+                        text: " \$ ${income()}",
                         fontSize: 20,
                         color: AppColors.lightWhite,
                       ),
                       ModifiedText(
-                        text: " \$2,980",
+                        text: " \$ ${expenses()}",
                         fontSize: 20,
                         color: AppColors.lightWhite,
                       )
