@@ -2,7 +2,7 @@ import 'package:finance_app/data/model/add_data.dart';
 import 'package:finance_app/utils/colors.dart';
 import 'package:finance_app/utils/text.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -38,45 +38,55 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 350,
-                child: _head(),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ModifiedText(
-                      text: "Transaction History",
-                      color: AppColors.black,
-                      fontSize: 20,
-                    ),
-                    ModifiedText(
-                      text: "See All",
-                      color: AppColors.bgColor,
-                      fontSize: 18,
-                    ),
-                  ],
+        child: ValueListenableBuilder(
+          valueListenable: box.listenable(),
+          builder: (context, value, child) {
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 350,
+                    child: _head(),
+                  ),
                 ),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  history = box.values.toList()[index];
-                  return getList(history, index);
-                },
-                childCount: box.length,
-              ),
-            ),
-          ],
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ModifiedText(
+                          text: "Transaction History",
+                          color: AppColors.black,
+                          fontSize: 20,
+                        ),
+                        ModifiedText(
+                          text: "See All",
+                          color: AppColors.bgColor,
+                          fontSize: 18,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      if (index < box.length) {
+                        // Checking if the index is within the valid range
+                        history = box.values.toList()[index];
+                        return getList(history, index);
+                      } else {
+                        return Container();
+                      }
+                    },
+                    childCount: box.length,
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
