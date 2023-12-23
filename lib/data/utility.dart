@@ -63,3 +63,52 @@ int expenses() {
   totals = a.reduce((value, element) => value + element);
   return totals;
 }
+
+List<AddData> today() {
+  List<AddData> a = [];
+  var history2 = box.values.toList();
+  DateTime date = DateTime.now();
+  for (var i = 0; i < history2.length; i++) {
+    if (history2[i].dateTime.day == date.day) {
+      a.add(history2[i]);
+    }
+  }
+  return a;
+}
+
+List<AddData> week() {
+  List<AddData> a = [];
+  var history2 = box.values.toList();
+  DateTime date = DateTime.now();
+  for (var i = 0; i < history2.length; i++) {
+    if (date.day - 7 <= history2[i].dateTime.day &&
+        history2[i].dateTime.day <= date.day) {
+      a.add(history2[i]);
+    }
+  }
+  return a;
+}
+
+List<AddData> month() {
+  List<AddData> a = [];
+  var history2 = box.values.toList();
+  DateTime date = DateTime.now();
+  for (var i = 0; i < history2.length; i++) {
+    if (history2[i].dateTime.month == date.month) {
+      a.add(history2[i]);
+    }
+  }
+  return a;
+}
+
+List<AddData> year() {
+  List<AddData> a = [];
+  var history2 = box.values.toList();
+  DateTime date = DateTime.now();
+  for (var i = 0; i < history2.length; i++) {
+    if (history2[i].dateTime.year == date.year) {
+      a.add(history2[i]);
+    }
+  }
+  return a;
+}
