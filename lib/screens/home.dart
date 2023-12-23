@@ -107,6 +107,7 @@ class _HomeState extends State<Home> {
     String imagePath = imagePaths[imageIndex];
     return ListTile(
       leading: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
         child: Image.asset(
           imagePath,
           height: 40,
