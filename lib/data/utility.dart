@@ -11,14 +11,15 @@ int total() {
   List income = [];
   for (var i = 0; i < history2.length; i++) {
     try {
-      int amount = int.parse(history2[i].amont);
-
       // If 'isInBox' is "income", add the amount as is; otherwise, add its negation
       // ignore: unrelated_type_equality_checks
+      int amount = int.parse(history2[i].amont);
       income.add(history2[i].choice == 'Income' ? amount : -amount);
     } catch (e) {
-      // Handlng the case where parsing fails
-      print("Error parsing amount at index $i: $e");
+      // Handling the case where parsing fails
+      if (kDebugMode) {
+        print("Error parsing amount at index $i: $e");
+      }
     }
   }
   if (income.isNotEmpty) {
@@ -36,13 +37,13 @@ int income() {
   for (var i = 0; i < history2.length; i++) {
     try {
       int amount = int.parse(history2[i].amont);
-
       // If 'isInBox' is "income", add the amount as is; otherwise, add its negation
-      // ignore: unrelated_type_equality_checks
       income.add(history2[i].choice == 'Income' ? amount : 0);
     } catch (e) {
       // Handlng the case where parsing fails
-      print("Error parsing amount at index $i: $e");
+      if (kDebugMode) {
+        print("Error parsing amount at index $i: $e");
+      }
     }
   }
   if (income.isNotEmpty) {
@@ -168,7 +169,7 @@ List time(List<AddData> history2, bool hour) {
   List total = [0, 0];
   int counter = 0;
   for (var c = 0; c < history2.length; c++) {
-    for (var i = c; i < history2.length; c++) {
+    for (var i = c; i < history2.length; i++) {
       if (hour) {
         if (history2[i].dateTime.hour == history2[c].dateTime.hour) {
           a.add(history2[i]);
@@ -184,6 +185,9 @@ List time(List<AddData> history2, bool hour) {
     total.add(totalChart(a));
     a.clear();
     c = counter;
+  }
+  if (kDebugMode) {
+    print(total);
   }
   return total;
 }

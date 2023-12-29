@@ -13,34 +13,34 @@ class Chart extends StatefulWidget {
 }
 
 class _ChartState extends State<Chart> {
-  List<AddData>? a;
-  bool b = true;
-  bool j = true;
+  List<AddData>? selectedData;
+  bool isWeekly = true;
+  bool isMonthly = true;
   @override
   Widget build(BuildContext context) {
     switch (widget.index) {
       case 0:
-        a = today();
-        b = true;
-        j = true;
+        selectedData = today();
+        isWeekly = true;
+        isMonthly = true;
 
         break;
       case 1:
-        a = week();
-        b = false;
-        j = true;
+        selectedData = week();
+        isWeekly = false;
+        isMonthly = true;
 
         break;
       case 2:
-        a = month();
-        b = false;
-        j = true;
+        selectedData = month();
+        isWeekly = false;
+        isMonthly = true;
 
         break;
       case 3:
-        a = year();
+        selectedData = year();
 
-        j = true;
+        isMonthly = true;
 
         break;
       default:
@@ -55,28 +55,37 @@ class _ChartState extends State<Chart> {
             color: AppColors.bgColor,
             width: 3,
             dataSource: <SalesData>[
-              SalesData('Mon', 100),
-              SalesData("Tue", 78),
-              SalesData("wed", 22),
-              SalesData("sat", 56),
-              SalesData("Fri", 23),
-              SalesData("sun", 50)
-              // ...List.generate(time(a!, b ? true : false).length, (index) {
-              //   return SalesData(
-              //       j
-              //           ? b
-              //               ? a![index].dateTime.hour.toString()
-              //               : a![index].dateTime.day.toString()
-              //           : a![index].dateTime.month.toString(),
-              //       b
-              //           ? index > 0
-              //               ? time(a!, true)[index] + time(a!, true)[index - 1]
-              //               : time(a!, true)[index]
-              //           : index > 0
-              //               ? time(a!, false)[index] +
-              //                   time(a!, false)[index - 1]
-              //               : time(a!, false)[index]);
-              // })
+              // SalesData('Mon', 100),
+              // SalesData("Tue", 78),
+              // SalesData("wed", 22),
+              // SalesData("sat", 56),
+              // SalesData("Fri", 23),
+              // SalesData("sun", 50),
+              ...List.generate(
+                  time(selectedData!, isWeekly ? true : false).length, (index) {
+                // Check if index is within the valid range
+                if (index < selectedData!.length) {
+                  return SalesData(
+                    isMonthly
+                        ? isWeekly
+                            ? selectedData![index].dateTime.hour.toString()
+                            : selectedData![index].dateTime.day.toString()
+                        : selectedData![index].dateTime.month.toString(),
+                    isWeekly
+                        ? index > 0
+                            ? time(selectedData!, true)[index] +
+                                time(selectedData!, true)[index - 1]
+                            : time(selectedData!, true)[index]
+                        : index > 0
+                            ? time(selectedData!, false)[index] +
+                                time(selectedData!, false)[index - 1]
+                            : time(selectedData!, false)[index],
+                  );
+                } else {
+                  // Handle the case when index is out of range
+                  return SalesData('', 0);
+                }
+              })
             ],
             xValueMapper: (SalesData sales, _) => sales.year,
             yValueMapper: (SalesData sales, _) => sales.sales,

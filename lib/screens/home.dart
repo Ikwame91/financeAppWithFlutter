@@ -94,12 +94,15 @@ class _HomeState extends State<Home> {
   }
 
   Widget getList(AddData history, int index) {
-    return Dismissible(
-        key: UniqueKey(),
-        onDismissed: (direction) {
-          history.delete();
-        },
-        child: transactionList(index, history));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Dismissible(
+          key: UniqueKey(),
+          onDismissed: (direction) {
+            history.delete();
+          },
+          child: transactionList(index, history)),
+    );
   }
 
   SizedBox transactionList(int index, AddData history) {
@@ -130,7 +133,6 @@ class _HomeState extends State<Home> {
           color: history.choice == 'Income' ? Colors.green : Colors.red,
           fontSize: 18,
         ),
-        minVerticalPadding: 20,
       ),
     );
   }
