@@ -55,22 +55,28 @@ class _ChartState extends State<Chart> {
             color: AppColors.bgColor,
             width: 3,
             dataSource: <SalesData>[
-              ...List.generate(time(a!, b ? true : false).length, (index) {
-                return SalesData(
-                    j
-                        ? b
-                            ? a![index].dateTime.hour.toString()
-                            : a![index].dateTime.day.toString()
-                        : a![index].dateTime.month.toString(),
-                    b
-                        ? index > 0
-                            ? time(a!, true)[index] + time(a!, true)[index - 1]
-                            : time(a!, true)[index]
-                        : index > 0
-                            ? time(a!, false)[index] +
-                                time(a!, false)[index - 1]
-                            : time(a!, false)[index]);
-              })
+              SalesData('Mon', 100),
+              SalesData("Tue", 78),
+              SalesData("wed", 22),
+              SalesData("sat", 56),
+              SalesData("Fri", 23),
+              SalesData("sun", 50)
+              // ...List.generate(time(a!, b ? true : false).length, (index) {
+              //   return SalesData(
+              //       j
+              //           ? b
+              //               ? a![index].dateTime.hour.toString()
+              //               : a![index].dateTime.day.toString()
+              //           : a![index].dateTime.month.toString(),
+              //       b
+              //           ? index > 0
+              //               ? time(a!, true)[index] + time(a!, true)[index - 1]
+              //               : time(a!, true)[index]
+              //           : index > 0
+              //               ? time(a!, false)[index] +
+              //                   time(a!, false)[index - 1]
+              //               : time(a!, false)[index]);
+              // })
             ],
             xValueMapper: (SalesData sales, _) => sales.year,
             yValueMapper: (SalesData sales, _) => sales.sales,

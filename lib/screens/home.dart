@@ -102,32 +102,35 @@ class _HomeState extends State<Home> {
         child: transactionList(index, history));
   }
 
-  ListTile transactionList(int index, AddData history) {
+  SizedBox transactionList(int index, AddData history) {
     var imageIndex = index % imagePaths.length;
     String imagePath = imagePaths[imageIndex];
-    return ListTile(
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Image.asset(
-          imagePath,
-          height: 40,
+    return SizedBox(
+      child: ListTile(
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.asset(
+            imagePath,
+            height: 40,
+          ),
         ),
-      ),
-      title: BoldText(
-        text: history.name,
-        size: 18,
-        color: AppColors.black,
-      ),
-      subtitle: ModifiedText(
-        text:
-            '${day[history.dateTime.weekday - 1]}  ${history.dateTime.year}-${history.dateTime.day}-${history.dateTime.month}',
-        color: AppColors.black,
-        fontSize: 16,
-      ),
-      trailing: ModifiedText(
-        text: history.amont,
-        color: history.choice == 'Income' ? Colors.green : Colors.red,
-        fontSize: 18,
+        title: BoldText(
+          text: history.name,
+          size: 18,
+          color: AppColors.black,
+        ),
+        subtitle: ModifiedText(
+          text:
+              '${day[history.dateTime.weekday - 1]}  ${history.dateTime.year}-${history.dateTime.day}-${history.dateTime.month}',
+          color: AppColors.black,
+          fontSize: 16,
+        ),
+        trailing: ModifiedText(
+          text: history.amont,
+          color: history.choice == 'Income' ? Colors.green : Colors.red,
+          fontSize: 18,
+        ),
+        minVerticalPadding: 20,
       ),
     );
   }
@@ -149,7 +152,7 @@ class _HomeState extends State<Home> {
             child: Stack(
               children: [
                 Positioned(
-                  top: 35,
+                  top: 70,
                   right: 10,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -162,7 +165,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 35, left: 15),
+                  padding: const EdgeInsets.only(top: 70, left: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

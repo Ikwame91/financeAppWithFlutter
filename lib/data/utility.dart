@@ -1,4 +1,5 @@
 import 'package:finance_app/data/model/add_data.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 int totals = 0;
@@ -57,8 +58,18 @@ int expenses() {
   var history2 = box.values.toList();
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
-    a.add(
-        history2[i].choice == 'Income' ? 0 : int.parse(history2[i].amont) * -1);
+    try {
+      a.add(history2[i].choice == 'Income'
+          ? 0
+          : int.parse(history2[i].amont) * -1);
+    } catch (e) {
+      if (kDebugMode) {
+        print(
+            "Error parsing amount at index $i: $e, value: ${history2[i].amont}");
+      }
+      // Setting a default value (0 in this case).
+      a.add(0);
+    }
   }
   totals = a.reduce((value, element) => value + element);
   return totals;
@@ -69,8 +80,15 @@ List<AddData> today() {
   var history2 = box.values.toList();
   DateTime date = DateTime.now();
   for (var i = 0; i < history2.length; i++) {
-    if (history2[i].dateTime.day == date.day) {
-      a.add(history2[i]);
+    try {
+      if (history2[i].dateTime.day == date.day) {
+        a.add(history2[i]);
+      }
+    } catch (e) {
+      //Handling error
+      if (kDebugMode) {
+        print('Error proccessing data at index $i: $e');
+      }
     }
   }
   return a;
@@ -81,9 +99,16 @@ List<AddData> week() {
   var history2 = box.values.toList();
   DateTime date = DateTime.now();
   for (var i = 0; i < history2.length; i++) {
-    if (date.day - 7 <= history2[i].dateTime.day &&
-        history2[i].dateTime.day <= date.day) {
-      a.add(history2[i]);
+    try {
+      if (date.day - 7 <= history2[i].dateTime.day &&
+          history2[i].dateTime.day <= date.day) {
+        a.add(history2[i]);
+      }
+    } catch (e) {
+      //Handling error
+      if (kDebugMode) {
+        print('Error proccessing data at index $i: $e');
+      }
     }
   }
   return a;
@@ -94,8 +119,15 @@ List<AddData> month() {
   var history2 = box.values.toList();
   DateTime date = DateTime.now();
   for (var i = 0; i < history2.length; i++) {
-    if (history2[i].dateTime.month == date.month) {
-      a.add(history2[i]);
+    try {
+      if (history2[i].dateTime.month == date.month) {
+        a.add(history2[i]);
+      }
+    } catch (e) {
+      //Handling error
+      if (kDebugMode) {
+        print('Error proccessing data at index $i: $e');
+      }
     }
   }
   return a;
@@ -106,8 +138,15 @@ List<AddData> year() {
   var history2 = box.values.toList();
   DateTime date = DateTime.now();
   for (var i = 0; i < history2.length; i++) {
-    if (history2[i].dateTime.year == date.year) {
-      a.add(history2[i]);
+    try {
+      if (history2[i].dateTime.year == date.year) {
+        a.add(history2[i]);
+      }
+    } catch (e) {
+      //Handling error
+      if (kDebugMode) {
+        print('Error proccessing data at index $i: $e');
+      }
     }
   }
   return a;
