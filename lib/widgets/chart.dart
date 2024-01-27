@@ -22,12 +22,12 @@ class _ChartState extends State<Chart> {
       case 0:
         selectedData = today();
         isWeekly = true;
-        isMonthly = true;
+        isMonthly = false;
 
         break;
       case 1:
         selectedData = week();
-        isWeekly = false;
+        isWeekly = true;
         isMonthly = true;
 
         break;
